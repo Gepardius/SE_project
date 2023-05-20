@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Delete Expense</title>
+</head>
+<body>
+   <h1>Delete Expense</h1>
+   
+   <!-- Add the following line to link the CSS file -->
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='delete_expense.css') }}">
+   
+   <ul>
+       <li>
+           <span>Expense 1</span>
+           <button onclick="deleteExpense(1)">Delete</button>
+       </li>
+   </ul>
+
+   <script>
+       function deleteExpense(id) {
+           // Add your JavaScript code to handle the deletion
+           // You can use AJAX or submit a form to the backend
+           console.log('Deleting expense with id:', id);
+       }
+   </script>
+   
+</body>
+</html>

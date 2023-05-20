@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Add Expense</title>
+   <!-- Add the following line to link the CSS file -->
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='add_expense.css') }}">
+   <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+</head>
+<body>
+   <h1>Add Expense</h1>
+   
+   <form action="/add_expense" method="POST">
+       <label for="username">Username:</label>
+       <input type="text" name="username" value="{{ username }}" readonly>
+       <br>
+       <label for="amount">Amount:</label>
+       <input type="text" id="amount" name="amount" required oninput="validateFloat(event)">
+       <br>
+       <label for="category">Category:</label>
+       <input type="text" id="category" name="category" required>
+       <br>
+       <label for="description">Description:</label>
+       <textarea id="description" name="description" rows="5" cols="50" required></textarea>
+       <br>
+       <label for="date">Date:</label>
+       <input type="date" id="date" name="date" required>
+       <br>
+       <input type="submit" value="Save expense">
+   </form>
+   
+</body>
+</html>
