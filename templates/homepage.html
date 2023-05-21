@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='homepage.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xrge7cQbcNsOvQX5KP5WklwtTlKFLYVJk0iDZ3Irm8F6myN5xHr1uR1Kwd5uMEGrLkmUm8zgIqKJwVq7kgfzRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <div class="header-banner">
+            <h1>Budget overview</h1>
+            <div class="header-buttons">
+                <button class="snake-effect" title="Add Income" onclick="location.href='/add_income'">
+                    <div class="button-content">
+                        <img src="{{ url_for('static', filename='add_income.png') }}" alt="Add Income">
+                        <span class="button-text">Add Income</span>
+                    </div>
+                </button>
+                <button class="snake-effect" title="Add Expense" onclick="location.href='/add_expense'">
+                    <div class="button-content">
+                        <img src="{{ url_for('static', filename='add_expense.png') }}" alt="Add Expense">
+                        <span class="button-text">Add Expense</span>
+                    </div>
+                </button>
+                <button class="snake-effect" title="Transactions" onclick="location.href='/transactions'">
+                    <div class="button-content">
+                        <img src="{{ url_for('static', filename='transactions.png') }}" alt="Transactions">
+                        <span class="button-text">My Table</span>
+                    </div>
+                </button>
+                <button class="snake-effect" title="Logout" onclick="location.href='/logout'">
+                    <div class="button-content">
+                        <img src="{{ url_for('static', filename='logout.png') }}" alt="Logout">
+                        <span class="button-text">Logout</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="left-half">
+                <h2>Graph</h2>
+                <img src="{{ url_for('static', filename='index.jpg') }}" alt="Image" style="max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="right-half">
+                <h2>Tables</h2>
+                <!-- Display the last 10 transactions here -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
