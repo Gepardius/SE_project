@@ -1,12 +1,20 @@
 .container {
   display: flex;
   height: 100vh;
-  background-color: rgba(220, 255, 220, 0.3); /* Very light shaded green */
+  background-color: #F6F6F6; /* Light gray color */
 }
 
 .left-half {
   flex: 1;
-  background-color: lightgray;
+  background-color: #F6F6F6; /* Light gray color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-half img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .right-half {
@@ -15,16 +23,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(220, 255, 220, 0.3); /* Very light shaded green */
+  background-color: #F6F6F6; /* Light gray color */
 }
 
 .top-right,
 .bottom-right {
   margin-bottom: 20px;
-  color: gray; /* Light gray color */
+  color: #777777; /* Light gray color */
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center; /* Align text in the center */
 }
 
 form {
@@ -35,27 +44,28 @@ form {
 
 label {
   margin-bottom: 5px;
+  font-weight: bold; /* Make the label text bold */
 }
 
 input[type="text"],
 input[type="password"],
 input[type="submit"] {
   background-color: white;
-  color: gray; /* Light gray color */
-  border: 1px solid gray; /* Add a border */
-  padding: 10px 15px; /* Add some padding */
-  border-radius: 4px; /* Add border radius for rounded corners */
-  font-size: 14px; /* Adjust font size */
-  width: 200px; /* Adjust width */
-  margin-bottom: 10px; /* Add some vertical spacing */
+  color: #777777; /* Light gray color */
+  border: 1px solid #CCCCCC; /* Light gray border */
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+  margin-bottom: 10px;
 }
 
 input[type="submit"] {
-  cursor: pointer; /* Show pointer cursor on submit button */
+  cursor: pointer;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-  outline: none; /* Remove focus outline */
-  border-color: lightgreen; /* Change border color when focused */
+  outline: none;
+  border-color: #B3B3B3; /* Light gray border when focused */
 }
