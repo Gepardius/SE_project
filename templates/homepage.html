@@ -4,11 +4,19 @@
     <title>Homepage</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='homepage.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xrge7cQbcNsOvQX5KP5WklwtTlKFLYVJk0iDZ3Irm8F6myN5xHr1uR1Kwd5uMEGrLkmUm8zgIqKJwVq7kgfzRA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="body-class">
     <div class="container">
         <div class="header-banner">
-            <h1>Budget overview</h1>
+            <div class="homepage-header">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Budget Overview" style="width: 170px; height: 100px;">
+            </div>
+
+            <div class="summed-amount">
+                <h2 id="summed-amount">(Sum: ):</h2>
+            </div>
+
             <div class="header-buttons">
                 <button class="snake-effect" title="Add Income" onclick="location.href='/add_income'">
                     <div class="button-content">
@@ -22,30 +30,181 @@
                         <span class="button-text">Add Expense</span>
                     </div>
                 </button>
-                <button class="snake-effect" title="Transactions" onclick="location.href='/transactions'">
+                <button class="snake-effect" title="Transactions" onclick="location.href='/my_table'">
                     <div class="button-content">
                         <img src="{{ url_for('static', filename='transactions.png') }}" alt="Transactions">
                         <span class="button-text">My Table</span>
                     </div>
                 </button>
-                <button class="snake-effect" title="Logout" onclick="location.href='/logout'">
-                    <div class="button-content">
-                        <img src="{{ url_for('static', filename='logout.png') }}" alt="Logout">
-                        <span class="button-text">Logout</span>
-                    </div>
-                </button>
+                <div class="logout-button">
+                    <button class="snake-effect" title="Logout" onclick="location.href='/'">
+                        <div class="button-content">
+                            <img src="{{ url_for('static', filename='logout.png') }}" alt="Logout">
+                            <span class="button-text">Logout</span>
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="content">
             <div class="left-half">
-                <h2>Graph</h2>
-                <img src="{{ url_for('static', filename='index.jpg') }}" alt="Image" style="max-width: 100%; max-height: 100%;">
+                <div class="graph-container">
+                    <div class="graph-wrapper">
+                        <h2 id="expenses-graph-title">Expenses Graph (Total: ):</h2>
+                        <canvas id="expenses-chart"></canvas>
+                        <h2 id="income-graph-title">Income Graph (Total: ):</h2>
+                        <canvas id="income-chart"></canvas>
+                    </div>
+                </div>
             </div>
             <div class="right-half">
-                <h2>Tables</h2>
-                <!-- Display the last 10 transactions here -->
+                <div class="content">
+                    <div class="tables-container">
+                        <div class="table-wrapper">
+                            <h3 class="my-last-transactions">My Last Ten Expenses</h3>
+                            <table>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                                {% for expense in expenses %}
+                                <tr>
+                                    <td>{{ expense[0] }}</td>
+                                    <td>{{ expense[1] }}</td>
+                                    <td>{{ expense[2] }}</td>
+                                    <td>{{ expense[3] }}</td>
+                                    <td>{{ expense[4] }}</td>
+                                    <td>{{ expense[5] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div class="table-wrapper">
+                            <h3 class="my-last-transactions">My Last Ten Incomes</h3>
+                            <table>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                                {% for expense in income %}
+                                <tr>
+                                    <td>{{ expense[0] }}</td>
+                                    <td>{{ expense[1] }}</td>
+                                    <td>{{ expense[2] }}</td>
+                                    <td>{{ expense[3] }}</td>
+                                    <td>{{ expense[4] }}</td>
+                                    <td>{{ expense[5] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        // Retrieve the data for the expenses pie chart
+        const expenses = [{% for exp in the_table %}
+            { category: "{{ exp[0] }}", amount: {{ exp[1] }} },
+            {% endfor %}
+        ];
+
+        const filteredExpenses = expenses.filter(expense => expense.amount < 0);
+    
+        const expenseCategories = filteredExpenses.map(expense => expense.category);
+        const expenseAmounts = filteredExpenses.map(expense => Math.abs(expense.amount));
+    
+        const income = [{% for inc in the_table_income %}
+            { category: "{{ inc[0] }}", amount: {{ inc[1] }} },
+            {% endfor %}
+        ];
+
+        const filteredIncome = income.filter(inc => inc.amount > 0);
+
+        const incomeCategories = filteredIncome.map(inc => inc.category);
+        const incomeAmounts = filteredIncome.map(inc => inc.amount);
+
+        const totalExpenses = filteredExpenses.reduce((sum, expense) => sum + Math.abs(expense.amount), 0);
+        const totalIncome = filteredIncome.reduce((sum, inc) => sum + inc.amount, 0);
+        const formattedTotalExpenses = totalExpenses.toLocaleString('en-GB', { style: 'currency', currency: 'EUR' });
+        const formattedTotalIncome = totalIncome.toLocaleString('en-GB', { style: 'currency', currency: 'EUR' });
+
+        const expensesGraphTitle = document.getElementById("expenses-graph-title");
+        const incomeGraphTitle = document.getElementById("income-graph-title");
+    
+        expensesGraphTitle.innerHTML = `Expenses Graph (Total: -<span class="expense-total">${formattedTotalExpenses}</span>)`;
+        incomeGraphTitle.innerHTML = `Income Graph (Total: <span class="income-total">${formattedTotalIncome}</span>)`;
+
+        const sumAm = totalIncome - totalExpenses;
+        const formSumAm = sumAm.toLocaleString('en-GB', { style: 'currency', currency: 'EUR' });
+        const summedAmount = document.getElementById("summed-amount");
+        if (sumAm > 0) {
+            summedAmount.innerHTML = `<span class="positive-sum">Sum: ${formSumAm}</span>`;
+          } else {
+            summedAmount.innerHTML = `<span class="negative-sum">Sum: ${formSumAm}</span>`;
+        }
+
+        const expensesCanvas = document.getElementById("expenses-chart");
+        const incomeCanvas = document.getElementById("income-chart");
+
+        new Chart(expensesCanvas, {
+            type: "pie",
+            data: {
+                labels: expenseCategories,
+                datasets: [
+                    {
+                        data: expenseAmounts,
+                        backgroundColor: [
+                            "#FFC2D8", 
+                            "#A6D7F9", 
+                            "#FFE69B",
+                            "#D8FFCF",
+                            "#F9CFEF",
+                            "#BB88DD",
+                            "#DDFFFF",
+                            "#FFB3B3",
+                            "#FFFF99",
+                            "#B3FF99",
+                            "#8888FF",
+                        ],
+                    },
+                ],
+            },
+        });
+
+        new Chart(incomeCanvas, {
+            type: "pie",
+            data: {
+                labels: incomeCategories,
+                datasets: [
+                    {
+                        data: incomeAmounts,
+                        backgroundColor: [
+                            "#FFC2D8",
+                            "#A6D7F9",
+                            "#FFE69B",
+                            "#D8FFCF",
+                            "#F9CFEF",
+                            "#BB88DD",
+                            "#DDFFFF",
+                            "#FFB3B3",
+                            "#FFFF99",
+                            "#B3FF99",
+                            "#8888FF",
+                        ],
+                    },
+                ],
+            },
+        });
+    </script>    
 </body>
 </html>

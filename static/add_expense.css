@@ -1,8 +1,7 @@
-/* add_expense.css */
 body {
   background-color: #f5f5f5;
   color: #333333;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica;
   margin: 0;
   padding: 20px;
 }
@@ -41,4 +40,130 @@ input[type="submit"]:hover {
 
 input[type="submit"]:active {
   background-color: #666666;
+}
+
+.header-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 20px;
+}
+
+.header-banner h1 {
+  margin: 0;
+}
+
+.header-buttons {
+  display: flex;
+  justify-content: center;
+  top: 10px; 
+}
+
+.header-buttons button {
+  color: #333333;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 12px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  transition: opacity 0.3s;
+}
+
+.header-buttons button .button-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.header-buttons button img {
+  width: 100%;
+  height: auto;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.header-buttons button {
+  border-bottom: 5px solid transparent; /* Add transparent bottom border */
+}
+
+.header-buttons button:hover {
+  border-bottom-color: black; /* Change bottom border color on hover */
+  transition: border-color 2.33s; /* Transition the border color change over 0.5 seconds */
+}
+
+.header-buttons button:hover img {
+  opacity: 0;
+}
+
+.header-buttons button .button-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.header-buttons button:hover .button-text {
+  opacity: 1;
+}
+
+.content {
+  display: flex;
+  margin-top: 20px;
+}
+
+.left-half {
+  flex: 1;
+  background-color: #F6F6F6; /* Light gray color */
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.left-half img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.right-half {
+  flex: 1;
+  background-color: #F6F6F6; /* Light gray color */
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.homepage-header {
+  position: absolute; 
+  top: 20px; 
+  left: 20px;
+}
+
+.logout-button {
+  position: absolute; 
+  top: 20px; 
+  right: 20px;
+}
+
+.title {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.homepage-header {
+  position: absolute; 
+  top: 20px; 
+  left: 20px;
 }

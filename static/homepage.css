@@ -1,3 +1,7 @@
+body {
+    font-family: Helvetica;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -11,8 +15,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white; /* Light gray color */
-    padding: 20px;
+    top: 20px;
   }
   
   .header-banner h1 {
@@ -22,24 +25,22 @@
   .header-buttons {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    top: 10px; 
   }
   
   .header-buttons button {
-    background-color: #DDDDDD;
     color: #333333;
     border: none;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    font-size: 20px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 12px;
+    padding: 15px 25px;
     display: flex;
     align-items: center;
     overflow: hidden;
     position: relative;
     transition: opacity 0.3s;
-  }
+}
   
   .header-buttons button .button-content {
     position: relative;
@@ -55,12 +56,12 @@
   }
   
   .header-buttons button {
-    border-bottom: 5px solid transparent; /* Add transparent bottom border */
+    border-bottom: 5px solid transparent;
   }
   
   .header-buttons button:hover {
-    border-bottom-color: black; /* Change bottom border color on hover */
-    transition: border-color 2.33s; /* Transition the border color change over 0.5 seconds */
+    border-bottom-color: black;
+    transition: border-color 2.33s;
   }
   
   .header-buttons button:hover img {
@@ -91,7 +92,7 @@
     background-color: #F6F6F6; /* Light gray color */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     flex-direction: column;
     padding: 20px;
   }
@@ -104,6 +105,107 @@
   .right-half {
     flex: 1;
     background-color: #F6F6F6; /* Light gray color */
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    flex-direction: column;
     padding: 20px;
   }
+
+  .homepage-header {
+    position: absolute; 
+    top: 20px; 
+    left: 20px;
+  }
+
+  .summed-amount {
+    position: absolute;
+    top: 20px;
+    left: 400px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  .logout-button {
+    position: absolute; 
+    top: 20px; 
+    right: 20px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+ }
+ 
+ th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+ }
+
+ tr:nth-child(even) {
+    background-color: #f2f2f2;
+ }
+ 
+ th {
+    background-color: #999999;
+    color: white;
+ }
+
+ .right-half table {
+    border-collapse: collapse;
+    width: 100%;
+ }
+ 
+ .right-half th, .right-half td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+ }
+ 
+ .right-half tr:nth-child(even) {
+    background-color: #f2f2f2;
+ }
+ 
+ .right-half th {
+    background-color: #999999;
+    color: white;
+ }
+
+ .tables-container {
+    display: flex;
+}
+
+.table-wrapper {
+    margin-right: 20px;
+}
+
+.right-half tr:hover {
+    background-color: #E5E4E2;
+  }
+
+.graph-container {
+    display: flex;
+}
+
+.graph-wrapper {
+    margin-right: 20px;
+}
+
+.expense-total {
+    color: red;
+}
+
+.income-total {
+    color: green;
+}
+
+.positive-sum {
+    color: green;
+  }
   
+.negative-sum {
+    color: red;
+  }  

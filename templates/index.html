@@ -2,14 +2,17 @@
 <html>
 <head>
     <title>Budget Overview</title>
-
-    <!-- Add the following line to link the CSS file -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
     <div class="container">
         <div class="left-half">
-         <img src="{{ url_for('static', filename='index.jpg') }}" alt="Image" style="max-width: 100%; max-height: 100%;">
+            <h2 class="index-text">
+                Welcome to the Budget Overview web application.
+                Here you will be able to add, maintain and overview your income and expenses.
+                Please Login or Register to continue.
+            </h2>
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Image" style="max-width: 100%; max-height: 100%;">
         </div>
         <div class="right-half">
             <div class="top-right">
@@ -41,5 +44,23 @@
             </div>
         </div>
     </div>
+
+    <div id="error-message">
+        <p>{{ error_message }}</p>
+    </div>
+
+    <script>
+        function displayErrorMessage() {
+            var errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'block';
+            setTimeout(function() {
+                errorMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        {% if error_message %}
+            displayErrorMessage();
+        {% endif %}
+    </script>
 </body>
 </html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Table</title>
+</head>
+<style>
+  body {
+    font-family: Helvetica;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  th {
+    background-color: #999999;
+    color: white;
+  }
+
+  .header-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 20px;
+  }
+
+  .header-banner h1 {
+    margin: 0;
+  }
+
+  .header-buttons {
+    display: flex;
+    justify-content: center;
+    top: 10px;
+  }
+
+  .header-buttons button {
+    color: #333333;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 12px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: opacity 0.3s;
+  }
+
+  .header-buttons button .button-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .header-buttons button img {
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
+  .header-buttons button {
+    border-bottom: 5px solid transparent;
+  }
+
+  .header-buttons button:hover {
+    border-bottom-color: black;
+    transition: border-color 2.33s;
+  }
+
+  .header-buttons button:hover img {
+    opacity: 0;
+  }
+
+  .header-buttons button .button-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+  }
+
+  .header-buttons button:hover .button-text {
+    opacity: 1;
+  }
+
+  .logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .title {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .homepage-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  /* Added CSS for hover effect */
+  tr:hover {
+    background-color: #E5E4E2;
+  }
+
+  .dropdown-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .dropdown select {
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .delete-expense {
+    color: #333333;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 12px;
+    padding: 15px 25px;
+    overflow: hidden;
+    position: relative;
+    transition: opacity 0.3s;
+    border-top: 5px solid transparent;
+    transition: border-color 2.33s;
+  }
+
+  .delete-expense:hover {
+    border-top-color: black;
+  }
+  
+</style>
+<body style="background-color: #F6F6F6">
+  <div class="homepage-header">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Budget Overview" style="width: 170px; height: 100px;">
+  </div>
+
+  <div class="header-banner">
+    <div class="header-buttons">
+      <button class="snake-effect" title="Homepage" onclick="location.href='/homepage'">
+        <div class="button-content">
+          <img src="{{ url_for('static', filename='homepage.png') }}" alt="Homepage">
+          <span class="button-text">Homepage</span>
+        </div>
+      </button>
+      <button class="snake-effect" title="Add Income" onclick="location.href='/add_income'">
+        <div class="button-content">
+          <img src="{{ url_for('static', filename='add_income.png') }}" alt="Add Income">
+          <span class="button-text">Add Income</span>
+        </div>
+      </button>
+      <button class="snake-effect" title="Add Expense" onclick="location.href='/add_expense'">
+        <div class="button-content">
+          <img src="{{ url_for('static', filename='add_expense.png') }}" alt="Add Expense">
+          <span class="button-text">Add Expense</span>
+        </div>
+      </button>
+      <div class="logout-button">
+        <button class="snake-effect" title="Logout" onclick="location.href='/logout'">
+          <div class="button-content">
+            <img src="{{ url_for('static', filename='logout.png') }}" alt="Logout">
+            <span class="button-text">Logout</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <h1 class="title">My Table</h1>
+  <div class="dropdown">
+    <form action="/delete_expense" method="post">
+        <select name="id" id="idDropdown">
+            {% for expense in expenses %}
+                <option value="{{ expense[0] }}">{{ expense[0] }} - {{ expense[2] }} - {{ expense[3] }} - {{ expense[4] }} - {{ expense[5] }}</option>
+            {% endfor %}
+        </select>
+        <button class="delete-expense" type="submit">Delete</button>
+    </form>
+</div>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Amount</th>
+    </tr>
+    {% for expense in expenses %}
+    <tr>
+      <td>{{ expense[0] }}</td>
+      <td>{{ expense[1] }}</td>
+      <td>{{ expense[2] }}</td>
+      <td>{{ expense[3] }}</td>
+      <td>{{ expense[4] }}</td>
+      <td>{{ expense[5] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-   <title>Login</title>
-   <!-- Add the following line to link the CSS file -->
-   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
-</head>
-<body>
-   <h1>Login</h1>
-   
-   <form action="/login" method="POST">
-       <label for="username">Username:</label>
-       <input type="text" id="username" name="username" required>
-       <br>
-       <label for="password">Password:</label>
-       <input type="password" id="password" name="password" required>
-       <br>
-       <input type="submit" value="Login">
-       {% if error_message %}
-       <p class="error">{{ error_message }}</p>
-       {% endif %}
-   </form>
-   
-</body>
-</html>
+{% if error_message %}
+<div class="modal" id="errorModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>{{ error_message }}</p>
+    </div>
+</div>
+
+<script>
+    // Display the error modal when the page loads
+    window.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById('errorModal').style.display = 'block';
+    });
+
+    // Close the error modal when the close button is clicked
+    document.getElementsByClassName('close')[0].addEventListener('click', (event) => {
+        document.getElementById('errorModal').style.display = 'none';
+    });
+</script>
+{% endif %}
